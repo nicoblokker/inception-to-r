@@ -27,7 +27,7 @@ Importing Inception’s export into R for social science projects
 ### Installation
 
 ``` r
-remotes::install_github("nicoblokker/inception2r")
+remotes::install_github("nicoblokker/inception-to-r")
 ```
 
 ### Load package and unzip XMI-files
@@ -77,7 +77,6 @@ df_custom
 
 -   include several namespaces or tags (layers also work,
     e.g. “Statement”)
--   iterate over multiple files and add index as new column (`file`)
 
 ``` r
 # extract multiple layers
@@ -100,6 +99,8 @@ df_mult_layers
     ## 10 64    1     1231  1346  Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
     ## # ... with 60 more rows, and 4 more variables: Wiedervorlage <chr>, role <chr>,
     ## #   target <chr>, quote <chr>
+
+-   iterate over multiple files and add index as new column (`file`)
 
 ``` r
 # extract multiple files (and layers)
