@@ -1,4 +1,4 @@
-Importing Inception’s export into R for social science projects
+Importing Inception’s export into R
 ================
 
 ## Introduction
