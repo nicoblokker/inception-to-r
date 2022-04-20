@@ -32,13 +32,22 @@ remotes::install_github("nicoblokker/inception-to-r")
 
 ### Load package and unzip XMI-files
 
--   unzip all (.zip) files in the specified directory labeled as
-    “webanno” and place in new folder using `unzip_export`
-
 ``` r
 library(inception2r)
+```
+
+*\[skip this step if XMI-files are already unzipped\]*
+
+-   download/export file(s) from Inception
+-   run `unzip_export` to unzip all (.zip) files in the specified
+    directory labeled as “webanno…” and place in new folder
+    -   can be applied both to individual documents and
+    -   to the complete export (set `recursive = TRUE` to extend towards
+        sub-directories)
+
+``` r
 unzip_export(path_to_export = ".", overwrite = FALSE, recursive = FALSE)  # CREATES LOCAL FILES; USE WITH CAUTION 
-xmi_file <- list.files(".", pattern = "\\.xmi$", recursive = T)           # only keep and select xmi-files
+xmi_file <- list.files(".", pattern = "\\.xmi$", recursive = T)           # select only XMI-files
 xmi_file
 ```
 
@@ -47,7 +56,7 @@ xmi_file
 ## Extract annotations
 
 -   use `xmi2df` function to extract annotations specified by the `key`
-    argument
+    argument (defaults to “custom”)
 -   Note: `key` queries the string contained in namespaces (e.g.,
     “custom” matches “custom” AND “custom2”)
 
@@ -77,56 +86,18 @@ df_custom
 
 -   include several namespaces or tags (layers also work,
     e.g. “Statement”)
+-   iterate over multiple files and add index as new column (`file`)
+    using the `purrr` package
 
 ``` r
 # extract multiple layers
-df_mult_layers <- xmi2df(xmi_file, key = c("custom", "Sentence"))  
-df_mult_layers
-```
+df_mult_layers <- xmi2df(xmi_file, key = c("custom", "Sentence")) 
 
-    ## # A tibble: 70 x 14
-    ##    id    sofa  begin end   layer    text  filename         Akteur Frame Polarity
-    ##    <chr> <chr> <chr> <chr> <chr>    <chr> <chr>            <chr>  <chr> <chr>   
-    ##  1 19    1     0     84    Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  2 24    1     85    153   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  3 29    1     155   292   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  4 34    1     293   427   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  5 39    1     429   599   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  6 44    1     600   781   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  7 49    1     783   979   Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  8 54    1     980   1123  Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ##  9 59    1     1125  1230  Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ## 10 64    1     1231  1346  Sentence ""    extracted/examp~ <NA>   <NA>  <NA>    
-    ## # ... with 60 more rows, and 4 more variables: Wiedervorlage <chr>, role <chr>,
-    ## #   target <chr>, quote <chr>
-
--   iterate over multiple files and add index as new column (`file`)
-
-``` r
 # extract multiple files (and layers)
-df_mult_files <- purrr::map_df(c(xmi_file, xmi_file), xmi2df, key = c("custom", "Sentence"), .id = "file")  
-df_mult_files
+df_mult_files <- purrr::map_df(c(xmi_file, xmi_file), xmi2df, key = c("custom", "Sentence"), .id = "file")
 ```
 
-    ## # A tibble: 140 x 15
-    ##    file  id    sofa  begin end   layer    text  filename   Akteur Frame Polarity
-    ##    <chr> <chr> <chr> <chr> <chr> <chr>    <chr> <chr>      <chr>  <chr> <chr>   
-    ##  1 1     19    1     0     84    Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  2 1     24    1     85    153   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  3 1     29    1     155   292   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  4 1     34    1     293   427   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  5 1     39    1     429   599   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  6 1     44    1     600   781   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  7 1     49    1     783   979   Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  8 1     54    1     980   1123  Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ##  9 1     59    1     1125  1230  Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ## 10 1     64    1     1231  1346  Sentence ""    extracted~ <NA>   <NA>  <NA>    
-    ## # ... with 130 more rows, and 4 more variables: Wiedervorlage <chr>,
-    ## #   role <chr>, target <chr>, quote <chr>
-
-### See what namespaces are available
-
--   see what namespaces are available by using `select_ns`
+-   to see what namespaces are available run `select_ns`
 
 ``` r
 select_ns(xmi_file)
