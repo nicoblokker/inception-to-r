@@ -8,9 +8,9 @@ Importing Inception’s export into R
     al. 2018) XMI-export into R for further analysis
 -   *`inception2r`* lets the user filter the exported files to extract
     only desired variables
--   *Intuition:* often the user is only interested in specific features
-    from the export (e.g., custom annotations) and not the whole
-    overhead
+-   *Intuition:* sometimes the user is only interested in specific
+    features from the export (e.g., custom annotations) and not the
+    whole overhead
 -   *under the hood:* the package makes heavy use of the `xml2` package
     (Wickham, Hester, and Ooms 2021) to extract XML-elements from
     exported files
@@ -63,23 +63,18 @@ xmi_file
 ``` r
 # extract custom annotations from file
 df_custom <- xmi2df(xmi_file, key = "custom")
-df_custom
+print(df_custom, n = 5)
 ```
 
     ## # A tibble: 50 x 14
-    ##    id    sofa  begin end   Akteur Frame Polarity Wiedervorlage layer       text 
-    ##    <chr> <chr> <chr> <chr> <chr>  <chr> <chr>    <chr>         <chr>       <chr>
-    ##  1 5881  1     0     84    6024   6075  -        false         Claim_multi 207 ~
-    ##  2 6121  1     155   292   6604   6264  -        false         Claim_multi 207 ~
-    ##  3 6650  1     429   599   6793   6844  -        false         Claim_multi 207 ~
-    ##  4 6973  1     783   979   7122   7173  -        false         Claim_multi 207 ~
-    ##  5 7302  1     1125  1230  7445   7496  -        false         Claim_multi 207 ~
-    ##  6 7625  1     1348  1442  7771   7822  +        false         Claim_multi 213 ~
-    ##  7 7951  1     1568  1733  8094   8145  +        false         Claim_multi 213 ~
-    ##  8 8274  1     1885  1993  8417   8468  +        false         Claim_multi 213 ~
-    ##  9 8597  1     2091  2282  8740   8791  +        false         Claim_multi 213 ~
-    ## 10 8920  1     2442  2553  9277   9063  +        false         Claim_multi 213 ~
-    ## # ... with 40 more rows, and 4 more variables: filename <chr>, role <chr>,
+    ##   id    sofa  begin end   Akteur Frame Polarity Wiedervorlage layer       text  
+    ##   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>    <chr>         <chr>       <chr> 
+    ## 1 5881  1     0     84    6024   6075  -        false         Claim_multi 207 S~
+    ## 2 6121  1     155   292   6604   6264  -        false         Claim_multi 207 S~
+    ## 3 6650  1     429   599   6793   6844  -        false         Claim_multi 207 S~
+    ## 4 6973  1     783   979   7122   7173  -        false         Claim_multi 207 S~
+    ## 5 7302  1     1125  1230  7445   7496  -        false         Claim_multi 207 S~
+    ## # ... with 45 more rows, and 4 more variables: filename <chr>, role <chr>,
     ## #   target <chr>, quote <chr>
 
 ### Extract annotations from multiple documents (and namespaces)
