@@ -22,7 +22,9 @@ xmi2df <- function(xmi_file, key = "custom"){
                                                                     "layer" = xml2::xml_name(.x),
                                                                     "text" = xml2::xml_text(.x),
                                                                     "filename" = {{xmi_file}}))
-                    annotations_df$quote <- purrr::map2_chr(annotations_df$begin, annotations_df$end, ~substr(annotated_textspan, .x, .y) |> trimws())
+                    if("begin" %in% colnames(annotations_df)){
+                              annotations_df$quote <- purrr::map2_chr(annotations_df$begin, annotations_df$end, ~substr(annotated_textspan, .x, .y))
+                    }
                     return(annotations_df)
           }
 }
