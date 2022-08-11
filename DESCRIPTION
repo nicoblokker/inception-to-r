@@ -12,6 +12,9 @@ RoxygenNote: 7.1.2
 Imports:
     purrr,
     xml2,
-    rlang
+    rlang,
+    magrittr,
+    tidyr,
+    dplyr
 Depends: R (>= 4.1)
     
