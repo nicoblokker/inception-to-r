@@ -3,6 +3,7 @@
 export(df2tri)
 export(select_ns)
 export(unzip_export)
+export(unzip_export2)
 export(xmi2df)
 export(xmi2list)
 importFrom(magrittr,"%>%")
