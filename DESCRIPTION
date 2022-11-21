@@ -1,7 +1,7 @@
 Package: inception2r
 Type: Package
 Title: Extract annotations from Inception's XMI-export
-Version: 0.1.0
+Version: 0.1.1
 Author: Nico Blokker
 Maintainer: NB <yourself@somewhere.net>
 Description: The goal of this package is to import and extract annotations from documents exported from the Inception annotation software.

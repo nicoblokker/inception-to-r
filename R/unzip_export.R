@@ -12,11 +12,11 @@
 
 unzip_export <- function(path_to_export = ".", overwrite = FALSE, recursive = FALSE){
           annotated_docs <- list.files(path_to_export, recursive = recursive)
-          annotated_docs <- annotated_docs[grepl("webanno", annotated_docs)]
+          annotated_docs <- annotated_docs[grepl("webanno|inception\\d+", annotated_docs)]
           doc_names <- list()
           for(i in seq_along(annotated_docs)){
                     path <- paste0(path_to_export, "\\", annotated_docs[i])
-                    out <- gsub("webanno.*?$", "extracted", path)
+                    out <- gsub("webanno.*?$|inception.*?$", "extracted", path)
                     doc_names[[i]] <- utils::unzip(path, exdir = out, overwrite = overwrite)[1]
           }
           if(length(doc_names) > 0){
