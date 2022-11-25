@@ -17,7 +17,7 @@ unzip_export <- function(path_to_export = ".", overwrite = FALSE, recursive = FA
           for(i in seq_along(annotated_docs)){
                     path <- paste0(path_to_export, "\\", annotated_docs[i])
                     out <- gsub("webanno.*?$|inception.*?$", "extracted", path)
-                    doc_names[[i]] <- utils::unzip(path, exdir = out, overwrite = overwrite)[1]
+                    doc_names[[i]] <- utils::unzip(path, exdir = out, overwrite = overwrite) |> (\(.) {.[!grepl("TypeSystem", .)]})()
           }
           if(length(doc_names) > 0){
                     message("extraction complete...")
