@@ -20,7 +20,7 @@ xmi2df <- function(xmi_file, key = "custom"){
                     annotations_df <- purrr::map_df(annotations, ~c(xml2::xml_attrs(.x),
                                                                     "layer" = xml2::xml_name(.x),
                                                                     "text" = xml2::xml_text(.x),
-                                                                    "filename" = {{xmi_file}}))
+                                                                    "xmi_file_name" = {{xmi_file}}))
                     if("sofa" %in% colnames(annotations_df)){
                               annotated_textspan <- xml2::xml_find_all(xmi_file_anno, "//*[contains(name(), ':Sofa')]") |> xml2::xml_attr("sofaString")
                               annotations_df$quote <- purrr::map2_chr(annotations_df$begin, annotations_df$end, ~substr(annotated_textspan, .x, .y))

@@ -30,7 +30,7 @@ Importing Inception’s export into R
 remotes::install_github("nicoblokker/inception-to-r")
 ```
 
-### Load package and unzip XMI-files
+### Load package and unzip XMI-files [deprecated]
 
 ``` r
 library(inception2r)
