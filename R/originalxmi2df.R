@@ -1,19 +1,19 @@
-#' @title xmi2df
-#' @description extract annotations from inception export (provided as xmi)
-#' @param xmi_file xmi-file as provided by inception export
+#' @title originalxmi2df
+#' @description extract original text from xmi files prepared for INCEpTION
+#' @param xmi_file xmi-file used for imprting data into INCEpTION
 #' @param key vector of keywords in questions (default set to 'custom' annotations)
-#' @return returns dataframe with queried annotations
+#' @return returns dataframe with queried CAS fields
 #' @examples
 #' \dontrun{
 #' xmi_files <- list.files(".", pattern = "\\.xmi$", recursive = T)
-#' df <- xmi2df(xmi_files[1])
-#' df <- xmi2df(xmi_files[1], c("custom", "Sentence"))
-#' df <- purrr::map_df(xmi_files[1:3], xmi2df, key = c("custom", "Sentence"), .id = "file")
+#' df <- originalxmi2df(xmi_files[1])
+#' df <- originalxmi2df(xmi_files[1], c("custom", "Sentence"))
+#' df <- purrr::map_df(xmi_files[1:3], originalxmi2df, key = c("custom", "Sentence"), .id = "file")
 #' }
 #' @export
 #' @importFrom rlang {{
 
-xmi2df <- function(xmi_file, key = "custom"){
+originalxmi2df <- function(xmi_file, key = "custom"){
           xmi_file_anno <-  xml2::read_xml(xmi_file)
           annotations <- xml2::xml_find_all(xmi_file_anno, make_query(keywords = key))
           if(length(annotations) > 0){
@@ -23,7 +23,7 @@ xmi2df <- function(xmi_file, key = "custom"){
                                                                     "xmi_file_name" = {{xmi_file}}))
                     if("sofa" %in% colnames(annotations_df)){
                               annotated_textspan <- xml2::xml_find_all(xmi_file_anno, "//*[contains(name(), ':Sofa')]") |> xml2::xml_attr("sofaString")
-                              annotations_df$quote <- purrr::map2_chr(annotations_df$begin, annotations_df$end, ~substr(annotated_textspan, .x, .y))
+                              annotations_df$atext <- annotated_textspan
                     }
                     return(annotations_df)
           }
