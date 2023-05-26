@@ -24,7 +24,7 @@ xmi2list <- function(xmi_file, key = "custom"){
                     if("sofa" %in% colnames(annotations_df)){
                               annotations_df$quote <- purrr::map2_chr(annotations_df$begin, annotations_df$end, ~substr(annotated_textspan, .x, .y))
                     }
-                    df <- annotations_df %>% tidyr::nest(annotations = -xmi_file_name) %>% dplyr::left_join(text, .)
+                    df <- annotations_df %>% tidyr::nest(annotations = -xmi_file_name) %>% dplyr::left_join(text, ., by = "xmi_file_name")
                     return(df)
           } else {
                     text$annotations <- list("no annotations")
