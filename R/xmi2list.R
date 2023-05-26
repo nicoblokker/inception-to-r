@@ -6,7 +6,8 @@
 #' @examples
 #' \dontrun{
 #' xmi_files <- list.files(".", pattern = "\\.xmi$", recursive = T)
-#' df <- purrr::map_df(files, purrr::possibly(xmi2list, data.frame(text = NULL)), .id = "id")
+#' df <- purrr::map_df(xmi_files, purrr::possibly(xmi2list, data.frame(text = NULL)), .id = "id")
+#' }
 #' @export
 #' @importFrom rlang {{
 #' @importFrom magrittr "%>%"

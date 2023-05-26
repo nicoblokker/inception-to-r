@@ -2,9 +2,10 @@
 #' @description chains several namespaces or layers into xpath-query
 #' @param keywords vector of keywords in questions
 #' @return returns string of query
-#' @examples
+#' @examples 
+#' \dontrun{
 #' make_query(c("custom", "Sentence"))
-#' @noRd
+#' }
 
 make_query <- function(keywords){
           query <- vector()

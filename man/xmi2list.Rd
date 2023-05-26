@@ -17,3 +17,9 @@ returns dataframe with queried annotations
 \description{
 extract text and possibly annotations from inception export (provided as xmi)
 }
+\examples{
+\dontrun{
+xmi_files <- list.files(".", pattern = "\\\\.xmi$", recursive = T)
+df <- purrr::map_df(xmi_files, purrr::possibly(xmi2list, data.frame(text = NULL)), .id = "id")
+}
+}

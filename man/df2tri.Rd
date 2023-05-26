@@ -23,6 +23,7 @@ transforms (wide) `dataframe` into (long) edgelists to work with `igraph`
 code based on function `df2nmode` from mardyR package
 }
 \examples{
+\dontrun{
 df <- data.frame(from = 1:4,
                  to = c("a", "b", "b", "a"),
                  frame = paste0("f", 4:1),
@@ -31,4 +32,5 @@ df <- data.frame(from = 1:4,
                  stringsAsFactors = FALSE)
 
 df2tri(df, node_columns = 1:4, edge_columns = 5)
+}
 }
