@@ -30,7 +30,7 @@ Importing Inception’s export into R
 remotes::install_github("nicoblokker/inception-to-r")
 ```
 
-### Load package and unzip XMI-files [deprecated]
+### Load package and unzip XMI-files
 
 ``` r
 library(inception2r)
@@ -46,7 +46,7 @@ library(inception2r)
         sub-directories)
 
 ``` r
-unzip_export(path_to_export = ".", overwrite = FALSE, recursive = FALSE)  # CREATES LOCAL FILES; USE WITH CAUTION 
+unzip_export(path_to_export = "export", overwrite = FALSE, recursive = FALSE)  # CREATES LOCAL FILES; USE WITH CAUTION 
 xmi_file <- list.files(".", pattern = "\\.xmi$", recursive = T)           # select only XMI-files
 xmi_file
 ```
@@ -66,16 +66,16 @@ df_custom <- xmi2df(xmi_file, key = "custom")
 print(df_custom, n = 5)
 ```
 
-    ## # A tibble: 50 x 14
-    ##   id    sofa  begin end   Akteur Frame Polarity Wiedervorlage layer       text  
-    ##   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>    <chr>         <chr>       <chr> 
-    ## 1 5881  1     0     84    6024   6075  -        false         Claim_multi 207 S~
-    ## 2 6121  1     155   292   6604   6264  -        false         Claim_multi 207 S~
-    ## 3 6650  1     429   599   6793   6844  -        false         Claim_multi 207 S~
-    ## 4 6973  1     783   979   7122   7173  -        false         Claim_multi 207 S~
-    ## 5 7302  1     1125  1230  7445   7496  -        false         Claim_multi 207 S~
-    ## # ... with 45 more rows, and 4 more variables: filename <chr>, role <chr>,
-    ## #   target <chr>, quote <chr>
+    ## # A tibble: 50 × 14
+    ##   id    sofa  begin end   Akteur Frame Polar…¹ Wiede…² layer text  xmi_f…³ role 
+    ##   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>   <chr>   <chr> <chr> <chr>   <chr>
+    ## 1 5881  1     0     84    6024   6075  -       false   Clai… 207 … extrac… <NA> 
+    ## 2 6121  1     155   292   6604   6264  -       false   Clai… 207 … extrac… <NA> 
+    ## 3 6650  1     429   599   6793   6844  -       false   Clai… 207 … extrac… <NA> 
+    ## 4 6973  1     783   979   7122   7173  -       false   Clai… 207 … extrac… <NA> 
+    ## 5 7302  1     1125  1230  7445   7496  -       false   Clai… 207 … extrac… <NA> 
+    ## # … with 45 more rows, 2 more variables: target <chr>, quote <chr>, and
+    ## #   abbreviated variable names ¹​Polarity, ²​Wiedervorlage, ³​xmi_file_name
 
 ### Extract annotations from multiple documents (and namespaces)
 
