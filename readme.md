@@ -38,7 +38,7 @@ library(inception2r)
 
 *\[skip this step if XMI-files are already unzipped\]*
 
-- download/export file(s) from Inception
+- download/export file(s) from Inception[^1]
 - run `unzip_export` to unzip all (.zip) files in the specified
   directory labeled as “annotation…” or “curation…” and place in new
   folder
@@ -52,7 +52,7 @@ xmi_file <- list.files(".", pattern = "\\.xmi$", recursive = T)           # sele
 xmi_file
 ```
 
-    ## [1] "extracted/example_txt.xmi"
+    ## [1] "tests/testthat/annotation/test_document.txt/extracted/demo.xmi"
 
 ## Extract annotations
 
@@ -64,19 +64,15 @@ xmi_file
 ``` r
 # extract custom annotations from file
 df_custom <- xmi2df(xmi_file, key = "custom")
-print(df_custom, n = 5)
+print(df_custom, n = 3)
 ```
 
-    ## # A tibble: 50 × 14
-    ##   id    sofa  begin end   Akteur Frame Polar…¹ Wiede…² layer text  xmi_f…³ role 
-    ##   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>   <chr>   <chr> <chr> <chr>   <chr>
-    ## 1 5881  1     0     84    6024   6075  -       false   Clai… 207 … extrac… <NA> 
-    ## 2 6121  1     155   292   6604   6264  -       false   Clai… 207 … extrac… <NA> 
-    ## 3 6650  1     429   599   6793   6844  -       false   Clai… 207 … extrac… <NA> 
-    ## 4 6973  1     783   979   7122   7173  -       false   Clai… 207 … extrac… <NA> 
-    ## 5 7302  1     1125  1230  7445   7496  -       false   Clai… 207 … extrac… <NA> 
-    ## # … with 45 more rows, 2 more variables: target <chr>, quote <chr>, and
-    ## #   abbreviated variable names ¹​Polarity, ²​Wiedervorlage, ³​xmi_file_name
+    ## # A tibble: 3 × 9
+    ##   id    sofa  begin end   label   layer         text  xmi_file_name        quote
+    ##   <chr> <chr> <chr> <chr> <chr>   <chr>         <chr> <chr>                <chr>
+    ## 1 4075  1     213   295   Label 1 SentenceLabel ""    tests/testthat/anno… " St…
+    ## 2 4085  1     748   804   Label 2 SentenceLabel ""    tests/testthat/anno… " At…
+    ## 3 4080  1     805   887   Label 1 SentenceLabel ""    tests/testthat/anno… " St…
 
 ### Extract annotations from multiple documents (and namespaces)
 
@@ -99,9 +95,9 @@ df_mult_files <- purrr::map_df(c(xmi_file, xmi_file), xmi2df, key = c("custom", 
 select_ns(xmi_file)
 ```
 
-    ##  [1] "cas"         "chunk"       "constituent" "custom"      "custom2"    
-    ##  [6] "dependency"  "morph"       "pos"         "tcas"        "tweet"      
-    ## [11] "type"        "type10"      "type2"       "type3"       "type4"      
+    ##  [1] "cas"         "chunk"       "constituent" "custom"      "dependency" 
+    ##  [6] "morph"       "pos"         "tcas"        "tweet"       "type"       
+    ## [11] "type10"      "type11"      "type2"       "type3"       "type4"      
     ## [16] "type5"       "type6"       "type7"       "type8"       "type9"      
     ## [21] "xmi"
 
@@ -129,3 +125,6 @@ Wickham, Hadley, Jim Hester, and Jeroen Ooms. 2021. *Xml2: Parse XML*.
 </div>
 
 </div>
+
+[^1]: Demo project used in this repository created by:
+    <https://morbo.ukp.informatik.tu-darmstadt.de/demo>
